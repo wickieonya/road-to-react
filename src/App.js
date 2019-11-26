@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import './App.css';
-
+import "./App.css";
 
 const list = [
   {
@@ -84,13 +83,13 @@ const Table = ({ list, pattern, onDismiss }) => (
     {list.filter(isSearched(pattern)).map(item => {
       return (
         <div key={item.objectID} className="table-row">
-          <span>
+          <span style={{ width: "40%" }}>
             <a href={item.url}>{item.title}</a>
           </span>
-          <span> {item.author} </span>
-          <span> {item.num_comments} </span>
-          <span> {item.points} </span>
-          <span>
+          <span style={{ width: '30%'}}> {item.author} </span>
+          <span style={{ width: '7%'}}> {item.num_comments} </span>
+          <span style={{ width: '7%'}}> {item.points} </span>
+          <span style={{ width: '16%'}}>
             <Button
               onClick={() => onDismiss(item.objectID)}
               className="button-inline"
