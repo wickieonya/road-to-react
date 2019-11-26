@@ -50,15 +50,21 @@ class App extends Component {
   };
 
   render() {
-    var hello_world = "Welcome to the Road to Learn React";
+    const { search_term, list } = this.state;
     return (
       <div>
-        <h2> {hello_world} </h2>
+        <h2>Welcome to the Road to Learn React</h2>
         <form>
-          <input type="text" name="" id="" onChange={this.onSearchChange} />
+          <input
+            type="text"
+            name="search"
+            id="search_input"
+            onChange={this.onSearchChange}
+            value={search_term}
+          />
         </form>
         <br />
-        {this.state.list.filter(isSearched(this.state.search_term)).map(item => {
+        {list.filter(isSearched(search_term)).map(item => {
           return (
             <div key={item.objectID}>
               <span>
