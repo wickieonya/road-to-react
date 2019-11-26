@@ -27,11 +27,15 @@ const list = [
   }
 ];
 
+const isSearched = search_term => item =>
+  item.title.toLocaleLowerCase().includes(search_term.toLocaleLowerCase());
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      list
+      list,
+      search_term: ""
     };
   }
 
@@ -41,16 +45,24 @@ class App extends Component {
     this.setState({ list: updated_list });
   };
 
+  onSearchChange = event => {
+    this.setState({ search_term: event.target.value });
+  };
+
   render() {
     var hello_world = "Welcome to the Road to Learn React";
     return (
       <div>
         <h2> {hello_world} </h2>
-        {this.state.list.map(item => {
+        <form>
+          <input type="text" name="" id="" onChange={this.onSearchChange} />
+        </form>
+        <br />
+        {this.state.list.filter(isSearched(this.state.search_term)).map(item => {
           return (
             <div key={item.objectID}>
               <span>
-                <a href="{item.url}">{item.title}</a>
+                <a href={item.url}>{item.title}</a>
               </span>
               <span> {item.author} </span>
               <span> {item.num_comments} </span>
