@@ -52,10 +52,12 @@ class App extends Component {
   render() {
     const { search_term, list } = this.state;
     return (
-      <div>
-        <Search value={search_term} onChange={this.onSearchChange}>
-          Search
-        </Search>
+      <div className="page">
+        <div className="interactions">
+          <Search value={search_term} onChange={this.onSearchChange}>
+            Search
+          </Search>
+        </div>
         <Table list={list} pattern={search_term} onDismiss={this.onDismiss} />
       </div>
     );
@@ -76,10 +78,10 @@ const Search = ({ value, onChange, children }) => (
 );
 
 const Table = ({ list, pattern, onDismiss }) => (
-  <div>
+  <div className="table">
     {list.filter(isSearched(pattern)).map(item => {
       return (
-        <div key={item.objectID}>
+        <div key={item.objectID} className="table-row">
           <span>
             <a href={item.url}>{item.title}</a>
           </span>
@@ -89,7 +91,7 @@ const Table = ({ list, pattern, onDismiss }) => (
           <span>
             <Button
               onClick={() => onDismiss(item.objectID)}
-              className="btn btn-primary"
+              className="button-inline"
             >
               Dismiss
             </Button>
