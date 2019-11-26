@@ -53,18 +53,39 @@ class App extends Component {
     const { search_term, list } = this.state;
     return (
       <div>
-        <h2>Welcome to the Road to Learn React</h2>
-        <form>
-          <input
-            type="text"
-            name="search"
-            id="search_input"
-            onChange={this.onSearchChange}
-            value={search_term}
-          />
-        </form>
-        <br />
-        {list.filter(isSearched(search_term)).map(item => {
+        <Search value={search_term} onChange={this.onSearchChange}>
+          Search
+        </Search>
+        <Table list={list} pattern={search_term} onDismiss={this.onDismiss} />
+      </div>
+    );
+  }
+}
+
+class Search extends Component {
+  render() {
+    const { value, onChange, children } = this.props;
+    return (
+      <form>
+        { children }
+        <input
+          type="text"
+          name="search"
+          id="search_input"
+          onChange={onChange}
+          value={value}
+        />
+      </form>
+    );
+  }
+}
+
+class Table extends Component {
+  render() {
+    const { list, pattern, onDismiss } = this.props;
+    return (
+      <div>
+        {list.filter(isSearched(pattern)).map(item => {
           return (
             <div key={item.objectID}>
               <span>
@@ -74,10 +95,7 @@ class App extends Component {
               <span> {item.num_comments} </span>
               <span> {item.points} </span>
               <span>
-                <button
-                  onClick={() => this.onDismiss(item.objectID)}
-                  type="button"
-                >
+                <button onClick={() => onDismiss(item.objectID)} type="button">
                   Dismiss
                 </button>
               </span>
