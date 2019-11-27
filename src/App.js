@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import "./App.css";
+import { isArray } from "util";
 
 const DEFAULT_QUERY = "flask";
 const PATH_BASE = "https://hn.algolia.com/api/v1";
@@ -31,14 +32,11 @@ class App extends Component {
     .catch( error => console.log(error));
   }
 
-  componentDidUpdate() {
-    console.log(this.state.result);
-  }
 
   onDismiss = id => {
     const isNotId = item => item.objectID !== id;
-    const updated_list = this.state.list.filter(isNotId);
-    this.setState({ list: updated_list });
+    const updated_list = this.state.result.filter(isNotId);
+    this.setState({ result: updated_list });
   };
 
   onSearchChange = event => {
@@ -48,7 +46,6 @@ class App extends Component {
   render() {
     const { search_term, result } = this.state;
     if (!result) { return null; }
-    console.log(result);
 
     return (
       <div className="page">
